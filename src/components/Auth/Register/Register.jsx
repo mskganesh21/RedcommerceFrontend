@@ -27,6 +27,22 @@ const Register = () => {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
+  const [image, setImage] = useState("");
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const imageData = reader.result;
+      setImage(imageData);
+    }
+  };
+
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  }
+
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -56,7 +72,7 @@ const Register = () => {
     try {
       const response = await axios.post(
         "/api/user/register",
-        { username: user, password: pwd, email: email },
+        { username: user, password: pwd, email: email, profileImage: image },
         {
           headers: { "Content-Type": "application/json" },
           // withCredentials: true,
@@ -85,6 +101,15 @@ const Register = () => {
       <section className="reg1">
         <h1>Register</h1>
         <form className="reg2" onSubmit={handleSubmit}>
+        <label htmlFor="fileInput">Upload your photo here</label>
+            <input
+              type="file"
+              id="fileInput"
+              onChange={e => handleChange(e)}
+              required
+              accept="image/png, image/jpeg, image/jpg, image/jifif"
+            />
+            <img src={image} alt="" />
           <label htmlFor="username">Username:</label>
           <input
             type="text"
