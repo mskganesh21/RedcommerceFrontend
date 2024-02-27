@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PWD_REGEX, EMAIL_REGEX } from "../../../utils/Regex/index";

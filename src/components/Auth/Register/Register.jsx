@@ -1,16 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { USER_REGEX, PWD_REGEX, EMAIL_REGEX } from "../../../utils/Regex/index";
 import "./register.css";
-
+import axios from "../../../api/axios";
 const Register = () => {
   const userRef = useRef();
   const navigate = useNavigate();
-
+  const REGISTER_URL ="/user/register";
   const [user, setUser] = useState("");
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
@@ -71,11 +70,11 @@ const Register = () => {
     }
     try {
       const response = await axios.post(
-        "/api/user/register",
-        { username: user, password: pwd, email: email, profileImage: image },
+        REGISTER_URL,
+        { username: user, password: pwd, email: email },
         {
           headers: { "Content-Type": "application/json" },
-          // withCredentials: true,
+          withCredentials: true,
         }
       );
       if (response.status === 201) {

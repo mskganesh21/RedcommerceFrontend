@@ -15,6 +15,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/addproduct" element={<AddProduct />} />
       <Route path='/indProduct' element={<ProductDetails />} />
+      <Route path="/" element={<Home />} />
       {/* private routes */}
       <Route element={<RequireAuth />}>
       <Route path="/" element={<Home />} />
